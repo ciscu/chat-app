@@ -6,7 +6,7 @@
         <form @submit.prevent="enterChat">
           <label for="name">Enter your name:</label>
           <input type="text" name="name" v-model="name">
-          <button class="btn teal">Enter Chat</button>
+          <button class="btn teal">Enter</button>
         </form>
       </div>
     </div>
@@ -20,6 +20,11 @@ export default {
   data () {
     return {
       name: null,
+    }
+  },
+  methods: {
+    enterChat() {
+      console.log(this.name)
     }
   }
 }

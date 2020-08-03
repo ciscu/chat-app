@@ -1,14 +1,19 @@
 <template>
-  <div class="chat">
+  <div class="chat container">
+    <h2>Chat</h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'chat',
+  name: 'Chat',
+  props: ['name'],
   data () {
     return {
     }
+  },
+  methods: {
+
   }
 }
 </script>

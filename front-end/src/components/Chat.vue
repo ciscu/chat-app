@@ -68,4 +68,17 @@ export default {
   display: block;
   font-size: 0.8em;
 }
+.messages {
+  max-height: 400px;
+  overflow: auto;
+}
+.messages::-webkit-scrollbar{
+  width: 3px;
+}
+.messages::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.messages::-webkit-scrollbar-thumb{
+  background: #aaa;
+}
 </style>

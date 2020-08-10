@@ -12,7 +12,7 @@
         </ul>
       </div>
       <div class="card-action">
-        <NewMessage :name="name" />
+        <NewMessage :name="name" :socket="socket"/>
       </div>
     </div>
   </div>
@@ -32,26 +32,32 @@ export default {
   data () {
     return {
       messages: [],
+      socket: null
     }
   },
   methods: {
 
   },
   created(){
-    let ref = db.collection('messages').orderBy('timestamp')
-    ref.onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        if(change.type == "added"){
-          let doc = change.doc
+    this.socket = io.connect('http://localhost:3000')
+    if (this.socket) {
+        fetch('http://localhost:3000/get_chats')
+          .then(response => response.json())
+          .then(data => {
+            data.chats.forEach(chat => this.messages.push(chat))
+            })
+          
+          
+        this.socket.on('chat', data => {
           this.messages.push({
-            id: doc.id,
-            name: doc.data().name,
-            content: doc.data().content,
-            timestamp: moment(doc.data().timestamp).format('lll')
-          })
-        }
+          id: data.id,
+          name: data.name,
+          content: data.content,
+          timestamp: moment(data.timestamp).format('lll')
+        })
       })
-    })
+    }    
+
   }
 }
 </script>
